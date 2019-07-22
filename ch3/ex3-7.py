@@ -1,0 +1,48 @@
+guest_list = []
+guest_list.append('Thomas')
+guest_list.append('Dad')
+guest_list.append('Bob')
+guest_list.append('Curt')
+print('Welcome to dinner, ' + guest_list[0] + '.')
+print('Welcome to dinner, ' + guest_list[1] + '.')
+print('Welcome to dinner, ' + guest_list[2] + '.')
+print('Welcome to dinner, ' + guest_list[3] + '.')
+print('Oh, it seems that ' + guest_list[3] + ' can\'t make it.')
+
+guest_list[3] = 'David';
+print('New invitation list:')
+print('Welcome to dinner, ' + guest_list[0] + '.')
+print('Welcome to dinner, ' + guest_list[1] + '.')
+print('Welcome to dinner, ' + guest_list[2] + '.')
+print('Welcome to dinner, ' + guest_list[3] + '.')
+
+print('Bigger dinner table? Cool!')
+guest_list.insert(0, 'Jesus')
+guest_list.insert(2, 'Holy Spirit')
+guest_list.append('God')
+print('Welcome to dinner, ' + guest_list[0] + '.')
+print('Welcome to dinner, ' + guest_list[1] + '.')
+print('Welcome to dinner, ' + guest_list[2] + '.')
+print('Welcome to dinner, ' + guest_list[3] + '.')
+print('Welcome to dinner, ' + guest_list[4] + '.')
+print('Welcome to dinner, ' + guest_list[5] + '.')
+print('Welcome to dinner, ' + guest_list[6] + '.')
+
+print("Yikes! The table has shrunk! I no longer have room for all these guests!")
+guest = guest_list.pop()
+print('Sorry, I don\'t have room for you at the table, ' + guest + '.')
+guest = guest_list.pop()
+print('Sorry, I don\'t have room for you at the table, ' + guest + '.')
+guest = guest_list.pop()
+print('Sorry, I don\'t have room for you at the table, ' + guest + '.')
+guest = guest_list.pop()
+print('Sorry, I don\'t have room for you at the table, ' + guest + '.')
+guest = guest_list.pop()
+print('Sorry, I don\'t have room for you at the table, ' + guest + '.')
+print('Welcome to dinner, ' + guest_list[0] + '.')
+print('Welcome to dinner, ' + guest_list[1] + '.')
+
+del guest_list[1]
+del guest_list[0]
+print("The guest is list now empty.")
+print(guest_list)
