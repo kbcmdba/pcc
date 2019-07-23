@@ -6,3 +6,11 @@
 # one of the files to a different location on your system, and make sure the
 # code in the except block executes properly.
 
+filenames = ['cats.txt', 'dogs.txt']
+for filename in filenames:
+    try:
+        with open(filename, 'r') as file_object:
+            print(file_object.read())
+    except FileNotFoundError:
+        print(f"Unable to locate {filename}")
+
