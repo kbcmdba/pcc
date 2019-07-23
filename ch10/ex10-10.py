@@ -12,10 +12,17 @@
 # >>> line.lower().count('row')
 # 3
 #-----------------------------------------------------------------------------
-# Notice that converting the string to lowerase using lower() catches all
+# Notice that converting the string to lowercase using lower() catches all
 # appearances of the word you're looking for, regardless of how it's
 # formatted.
 #
 # Write a program that reads the files you found at Project Gutenberg and
 # determines how many times the word 'the' appears in each text.
+
+filenames = ['ATaleOfTwoCities.txt', 'TheAdventuresOfTomSawyer.txt', 'WarAndPeace.txt']
+for filename in filenames:
+    with open(filename, 'r') as file_object:
+        contents = file_object.read()
+        cnt = contents.lower().count('the')
+        print(f"The string 'the' appears in {filename} {cnt} times.")
 

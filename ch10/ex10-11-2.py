@@ -3,10 +3,13 @@
 # program that reads in this value and prints the message, "I know your
 # favorite number is ___."
 
-from json import dump
+from json import load
 
 filename = 'favorite_number.json'
-number = input('What is your favorite number? ')
-with open(filename, 'w') as file_object:
-    dump(number, file_object)
+try:
+    with open(filename, 'r') as file_object:
+        number = load(file_object)
+    print(f"I know your favorite number is {number}.")
+except FileNotFoundError:
+    print("Did you tell me what your favorite number is? I don't seem to be able to find it.")
 
