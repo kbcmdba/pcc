@@ -3,6 +3,9 @@
 # City, Country, such as Santiago, Chile. Store the function in a module
 # called city_functions.py
 #
-def format_city_info(city_name, country_name):
-    return f"{city_name}, {country_name}".title()
+def format_city_info(city_name, country_name, population=None):
+    if None == population:
+        return f"{city_name}, {country_name}".title()
+    else:
+        return f"{city_name}, {country_name}".title() + f" - population {population}"
 
