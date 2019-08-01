@@ -3,6 +3,7 @@ import sys
 import pygame
 from bullet import Bullet
 from alien import Alien
+from star import Star
 
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
@@ -44,7 +45,8 @@ def check_keyup_events(event, ship):
 def check_events(ai_settings, screen, ship, bullets):
     """Respond to keypresses and mouse events."""
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or (
+            event.type == pygame.KEYDOWN and event.key == pygame.K_q ):
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, ai_settings, screen, ship, bullets)
@@ -52,10 +54,11 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keyup_events(event, ship)
 
 
-def update_screen(ai_settings, screen, ship, aliens, bullets):
+def update_screen(ai_settings, screen, stars, ship, aliens, bullets):
     """Update images on the screen and flip to the new screen."""
     # Redraw the screen during each pass through the loop.
     screen.fill(ai_settings.bg_color)
+    stars.draw(screen)
     # Redraw all bullets behind ship and aliens.
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -113,4 +116,16 @@ def create_fleet(ai_settings, screen, ship, aliens):
         for alien_number in range(number_aliens_x):
             # Create an alien and place it in the row.
             create_alien(ai_settings, screen, aliens, alien_number, row_number)
+
+
+def create_star(ai_settings, screen, stars):
+    """Create a star and place it on the screen randomly."""
+    star = Star(ai_settings, screen)
+    stars.add(star)
+
+
+def create_starfield(ai_settings, screen, stars):
+    """Fill the screen background with stars."""
+    for star_number in range(ai_settings.stars_allowed):
+        create_star(ai_settings, screen, stars)
 

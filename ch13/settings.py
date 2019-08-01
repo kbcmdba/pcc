@@ -16,3 +16,6 @@ class Settings():
         self.bullet_color = 60, 60, 60
         self.bullets_allowed = 3
 
+        # Star settings
+        self.stars_allowed = 50
+

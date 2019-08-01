@@ -16,14 +16,15 @@ def run_game():
 
     # Make a ship, a group of bullets, and a group of aliens.
     ship = Ship(ai_settings, screen)
+    stars = Group()
     bullets = Group()
     aliens = Group()
 
+    # Create the field of stars.
+    gf.create_starfield(ai_settings, screen, stars)
+
     # Create the fleet of aliens.
     gf.create_fleet(ai_settings, screen, ship, aliens)
-
-    #    # Make an alien.
-    #    alien = Alien(ai_settings, screen)
 
     # Start the main loop for the game.
     while True:
@@ -31,7 +32,7 @@ def run_game():
         ship.update()
         bullets.update()
         gf.update_bullets(bullets)
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
+        gf.update_screen(ai_settings, screen, stars, ship, aliens, bullets)
 
 run_game()
 
