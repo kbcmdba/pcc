@@ -1,9 +1,9 @@
 import sys
 
 import pygame
+
 from bullet import Bullet
 from alien import Alien
-from star import Star
 
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
@@ -54,11 +54,10 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keyup_events(event, ship)
 
 
-def update_screen(ai_settings, screen, stars, ship, aliens, bullets):
+def update_screen(ai_settings, screen, ship, aliens, bullets):
     """Update images on the screen and flip to the new screen."""
     # Redraw the screen during each pass through the loop.
     screen.fill(ai_settings.bg_color)
-    stars.draw(screen)
     # Redraw all bullets behind ship and aliens.
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -69,7 +68,7 @@ def update_screen(ai_settings, screen, stars, ship, aliens, bullets):
     pygame.display.flip()
 
 
-def update_bullets(bullets):
+def update_bullets(ai_settings, screen, ship, aliens, bullets):
     """Update position of bullets and get rid of old bullets."""
     # Update bullet positions.
     bullets.update()
@@ -78,6 +77,19 @@ def update_bullets(bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
+    check_bullet_alien_collisions(ai_settings, screen, ship, alien, bullets)
+
+
+def check_bullet_alien_collisions(ai_settings, screen, ship, alien, bullets):
+    """Respond to bullet-alien collisions."""
+    # Remove any bullets and aliens that have collided.
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+
+    if len(aliens) == 0:
+        # Destroy existing bullets and create new fleet.
+        bullets.empty()
+        create_fleet(ai_settings, screen, ship, aliens)
 
 
 def get_number_aliens_x(ai_settings, alien_width):
@@ -91,7 +103,6 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     """Determine the number of rows of aliens that fit on the screen."""
     available_space_y = (ai_settings.screen_height - (3 * alien_height) - ship_height)
     number_rows = int(available_space_y / (2 * alien_height))
-    print(f"number_rows={number_rows}")
     return number_rows
 
 
@@ -142,15 +153,4 @@ def update_aliens(ai_settings, aliens):
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
 
-
-def create_star(ai_settings, screen, stars):
-    """Create a star and place it on the screen randomly."""
-    star = Star(ai_settings, screen)
-    stars.add(star)
-
-
-def create_starfield(ai_settings, screen, stars):
-    """Fill the screen background with stars."""
-    for star_number in range(ai_settings.stars_allowed):
-        create_star(ai_settings, screen, stars)
 
